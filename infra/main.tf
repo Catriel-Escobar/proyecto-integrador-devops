@@ -2,11 +2,9 @@ terraform {
   required_providers {
     render = {
       source  = "render-oss/render"
-      version = "1.3.0"
+      version = "~> 0.4.0"
     }
   }
-
-  required_version = ">= 1.6.0"
 }
 
 provider "render" {
@@ -14,22 +12,30 @@ provider "render" {
 }
 
 resource "render_web_service" "muro_app" {
-  name         = "muro-app-tf"
-  plan         = "free"
-  runtime_source = {
-    type = "github"
-    repo = "Catriel-Escobar/proyecto-integrador-devops"
-    branch = "main"
-    docker = {
+  name  = "muro-app-tf"
+  plan  = "free"
+  region = "oregon" # usa el código corto, no "Oregon, USA"
+
+  runtime_source {
+    type     = "github"
+    repo_url = "https://github.com/Catriel-Escobar/proyecto-integrador-devops"
+    branch   = "main"
+
+    docker {
       dockerfile_path = "Dockerfile"
-      context_path = "."
-      dockerfile_name = "Dockerfile"
-      auto_deploy = true
+      context_path    = "."
+      auto_deploy     = true
     }
   }
-  region = "Oregon, USA"
-  env_vars = {
-    PORT          = "3000"
-    MONGODB_URI   = var.mongodb_uri
-  }
+
+  env_vars = [
+    {
+      key   = "PORT"
+      value = "3000"
+    },
+    {
+      key   = "MONGODB_URI"
+      value = var.mongodb_uri
+    }
+  ]
 }

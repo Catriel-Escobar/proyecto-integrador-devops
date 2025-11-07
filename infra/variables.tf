@@ -5,7 +5,7 @@ variable "render_api_key" {
 }
 
 variable "mongodb_uri" {
-  description = "Connection string de MongoDB Atlas"
+  description = "URI de conexión a MongoDB Atlas"
   type        = string
   sensitive   = true
 }
