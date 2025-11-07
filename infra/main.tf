@@ -19,7 +19,7 @@ resource "render_web_service" "muro_app" {
   region = "oregon"
 
   runtime_source = {
-    type = "image"
+    type = "docker"
     
     docker = {
       repo_url        = "https://github.com/Catriel-Escobar/proyecto-integrador-devops"
