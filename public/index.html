@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muro de Comentarios Anónimos</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💬 Muro de Comentarios</h1>
+            <p>Deja tu mensaje de forma anónima</p>
+        </header>
+
+        <section class="form-section">
+            <form id="comentarioForm">
+                <div class="form-group">
+                    <label for="nombre">Tu nombre (opcional):</label>
+                    <input type="text" id="nombre" placeholder="Anónimo" maxlength="50">
+                </div>
+                <div class="form-group">
+                    <label for="mensaje">Tu mensaje:</label>
+                    <textarea id="mensaje" rows="4" placeholder="Escribe tu comentario aquí..." required maxlength="500"></textarea>
+                </div>
+                <button type="submit">Publicar Comentario</button>
+            </form>
+        </section>
+
+        <section class="comentarios-section">
+            <h2>Comentarios</h2>
+            <div id="comentariosContainer">
+                <p class="loading">Cargando comentarios...</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
