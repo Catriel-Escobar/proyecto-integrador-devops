@@ -13,9 +13,9 @@ provider "render" {
   owner_id = var.render_owner_id
 }
 
-resource "render_web_service" "muro_app" {
+resource "render_web_service" "muro_app_tf" {
   name   = "muro-app-tf"
-  plan   = "free"
+  plan   = "starter"
   region = "oregon"
 
   runtime_source = {
@@ -25,7 +25,6 @@ resource "render_web_service" "muro_app" {
       repo_url        = "https://github.com/Catriel-Escobar/proyecto-integrador-devops"
       branch          = "main"
       dockerfile_path = "Dockerfile"
-      context_path    = "."
       auto_deploy = true
     }
   }
