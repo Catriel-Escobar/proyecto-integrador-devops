@@ -2,10 +2,12 @@ terraform {
   required_providers {
     render = {
       source  = "render-oss/render"
-      version = "~> 0.4.0"
+      version = "~> 0.1.0"
     }
   }
+  required_version = ">= 1.3.0"
 }
+
 
 provider "render" {
   api_key = var.render_api_key
