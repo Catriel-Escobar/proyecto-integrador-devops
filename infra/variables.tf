@@ -9,3 +9,8 @@ variable "mongodb_uri" {
   type        = string
   sensitive   = true
 }
+
+variable "render_owner_id" {
+  description = "El Owner ID de la cuenta de Render"
+  type        = string
+}
