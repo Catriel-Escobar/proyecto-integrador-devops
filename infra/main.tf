@@ -1,11 +1,10 @@
 terraform {
   required_providers {
     render = {
-      source  = "render-oss/render"
-      version = "~> 0.1.0"
+      source = "render-oss/render"
+      version = "1.7.5"
     }
   }
-  required_version = ">= 1.3.0"
 }
 
 provider "render" {
@@ -17,10 +16,7 @@ resource "render_web_service" "muro_app_tf" {
   name   = "muro-app-tf"
   plan   = "starter"
   region = "oregon"
-
   runtime_source = {
-    type = "docker"
-    
     docker = {
       repo_url        = "https://github.com/Catriel-Escobar/proyecto-integrador-devops"
       branch          = "main"
