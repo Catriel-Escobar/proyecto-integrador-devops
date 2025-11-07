@@ -1,4 +1,4 @@
-name: CI/CD - Render + Docker
+name: CI/CD - Render + Docker + MongoDB Tests
 
 on:
   push:
@@ -11,6 +11,22 @@ jobs:
     name: Build, test y push a Docker Hub
     runs-on: ubuntu-latest
 
+    services:
+      mongodb:
+        image: mongo:7.0
+        ports:
+          - 27017:27017
+        options: >-
+          --health-cmd="mongosh --eval 'db.adminCommand(\"ping\")'" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=5
+
+    env:
+      MONGODB_URI: mongodb://localhost:27017/muro_comentarios
+      DB_NAME: muro_comentarios
+      PORT: 3000
+
     steps:
       - name: Checkout del código
         uses: actions/checkout@v4
@@ -22,6 +38,17 @@ jobs:
 
       - name: Instalar dependencias
         run: npm install
+
+      - name: Esperar a que MongoDB esté listo
+        run: |
+          for i in {1..10}; do
+            if docker exec $(docker ps -qf "ancestor=mongo:7.0") mongosh --eval "db.adminCommand('ping')" --quiet; then
+              echo "✅ MongoDB está listo"
+              break
+            fi
+            echo "⏳ Esperando MongoDB..."
+            sleep 5
+          done
 
       - name: Correr tests
         run: npm test
