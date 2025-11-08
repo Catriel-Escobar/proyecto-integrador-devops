@@ -1,6 +1,4 @@
-// Utilidades para el procesamiento de comentarios
-
-function normalizarNombre(nombre) {
+export function normalizarNombre(nombre) {
   if (!nombre || typeof nombre !== 'string') {
     return 'Anónimo';
   }
@@ -8,7 +6,7 @@ function normalizarNombre(nombre) {
   return nombreTrimmed.length > 0 ? nombreTrimmed : 'Anónimo';
 }
 
-function validarMensaje(mensaje) {
+export function validarMensaje(mensaje) {
   if (!mensaje) {
     return { valido: false, error: 'El mensaje es requerido' };
   }
@@ -24,7 +22,7 @@ function validarMensaje(mensaje) {
   return { valido: true };
 }
 
-function crearComentario(nombre, mensaje) {
+export function crearComentario(nombre, mensaje) {
   const nombreFinal = normalizarNombre(nombre);
   const validacion = validarMensaje(mensaje);
 
@@ -38,9 +36,3 @@ function crearComentario(nombre, mensaje) {
     fecha: new Date(),
   };
 }
-
-module.exports = {
-  normalizarNombre,
-  validarMensaje,
-  crearComentario,
-};

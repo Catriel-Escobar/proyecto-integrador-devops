@@ -6,6 +6,6 @@ module.exports = {
     '**/*.js',
     '!**/node_modules/**',
     '!**/tests/**',
-    '!jest.config.js',
+    '!jest.config.cjs',
   ],
 };

@@ -1,8 +1,7 @@
-const request = require('supertest');
-const { MongoClient } = require('mongodb');
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+import request from 'supertest';
+import { MongoClient } from 'mongodb';
+import express from 'express';
+import cors from 'cors';
 
 // Crear una app de Express para testing
 const app = express();

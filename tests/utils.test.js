@@ -1,8 +1,8 @@
-const {
+import {
   normalizarNombre,
   validarMensaje,
   crearComentario,
-} = require('../src/utils');
+} from '../src/utils.js';
 
 describe('Utilidades de Comentarios', () => {
   describe('normalizarNombre', () => {
