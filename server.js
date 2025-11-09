@@ -49,8 +49,7 @@ app.get('/metrics', async (req, res) => {
 
 const username = process.env.GRAFANA_USERNAME;
 const password = process.env.GRAFANA_API_KEY;
-console.log('username:', username);
-console.log('password:', password);
+
 const url =
   'https://prometheus-prod-40-prod-sa-east-1.grafana.net/api/prom/push';
 
