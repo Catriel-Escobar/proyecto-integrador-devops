@@ -1,21 +1,21 @@
+# Usar imagen base de Node.js
 FROM node:18-alpine
 
+# Establecer directorio de trabajo
 WORKDIR /app
 
+# Copiar archivos de dependencias
 COPY package*.json ./
 
-# Instalar todas las dependencias (dev incluidas)
-RUN npm install
+# Instalar dependencias
+RUN npm install --production
 
-# Copiar el resto del código
+# Copiar el resto de los archivos de la aplicación
 COPY . .
 
-# Generar el cliente de Prisma
-RUN npx prisma generate
-
-# Podés reducir tamaño removiendo devDeps
-RUN npm prune --production
-
+# Exponer el puerto de la aplicación
 EXPOSE 3000
 
+# Comando para iniciar la aplicación
 CMD ["npm", "start"]
+
