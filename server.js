@@ -57,12 +57,15 @@ async function enviarMetricas() {
   try {
     const metrics = await clientProm.register.getMetricsAsJSON();
 
-    const metricMap = {};
-    for (const m of metrics) {
-      if (m.type === 'gauge' || m.type === 'counter') {
-        metricMap[m.name] = m.values[0]?.value ?? 0;
-      }
-    }
+const metricMap = {};
+for (const m of metrics) {
+  if (m.type === 'gauge' || m.type === 'counter' || m.type === 'histogram') {
+    metricMap[m.name] = m.values.map(v => ({
+      ...v,
+      labels: { ...v.labels, service: 'express-backend' },
+    }));
+  }
+}
     await pushMetrics(metricMap, {
       url,
       auth: { username, password },
