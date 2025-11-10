@@ -16,7 +16,7 @@ collectDefaultMetrics({ timeout: 5000 });
 const httpRequestDurationMicroseconds = new clientProm.Histogram({
   name: 'http_request_duration_ms',
   help: 'Duration of HTTP requests in ms',
-  labelNames: ['method', 'route', 'code'],
+  labelNames: ['method', 'route', 'code',"service"],
   buckets: [50, 100, 200, 300, 500, 1000],
 });
 
@@ -78,7 +78,7 @@ for (const m of metrics) {
   }
 }
 
-setInterval(enviarMetricas, 60000);
+setInterval(enviarMetricas, 30000);
 
 let db;
 let client;
