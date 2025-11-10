@@ -56,25 +56,29 @@ const url =
 async function enviarMetricas() {
   try {
     const metrics = await clientProm.register.getMetricsAsJSON();
-
-const metricMap = {};
-for (const m of metrics) {
-  if (m.type === 'gauge' || m.type === 'counter' || m.type === 'histogram') {
-    metricMap[m.name] = m.values.map(v => ({
-      ...v,
-      labels: { ...v.labels, service: 'express-backend' },
-    }));
-  }
-}
+    const metricMap = {};
+    for (const m of metrics) {
+      if (m.type === 'gauge' || m.type === 'counter') {
+        metricMap[m.name] = m.values[0]?.value ?? 0;
+      } 
+      else if (m.type === 'histogram') {
+        for (const v of m.values) {
+          if (v.metricName.endsWith('_sum') || v.metricName.endsWith('_count')) {
+            v.labels = { ...v.labels, service: 'express-backend' };
+            metricMap[v.metricName + JSON.stringify(v.labels)] = v.value;
+          }
+        }
+      }
+    }
+    console.log(metricMap)
     await pushMetrics(metricMap, {
       url,
       auth: { username, password },
-      labels: { service: 'express-backend' },
     });
 
     console.log('Métricas enviadas correctamente a Grafana Cloud');
   } catch (err) {
-    console.error(' Error enviando métricas:', err.message);
+    console.error('Error enviando métricas:', err.message);
   }
 }
 
